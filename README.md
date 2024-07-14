@@ -101,7 +101,7 @@ rootProject.name = "todo"
 ```
 
 
-## Controller Refactoring(Java -> Kotlin)
+## Controller Layer Refactoring(Java -> Kotlin)
 ```
 @RestController
 @RequestMapping("/api/todos")
@@ -306,7 +306,7 @@ data class TodoRequest(
 ```
 
 
-## Service Refactoring(Java -> Kotlin)
+## Service Layer Refactoring(Java -> Kotlin)
 ```
 @Service
 public class TodoService {
@@ -403,5 +403,85 @@ class TodoService(
 }
 ```
 
+## Domain Layer(entity, repository) Refactoring(Java -> Kotlin)
+```
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Builder
+@Entity
+@Table(name = "todos")
+public class Todo {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(name = "title")
+    private String title;
+
+    @Lob
+    @Column(name = "description")
+    private String description;
+
+    @Column(name = "done")
+    private Boolean done;
+
+    @Column(name = "created_at")
+    private LocalDateTime createdAt;
+
+    @Column(name = "updated_at")
+    private LocalDateTime updatedAt;
+
+    public void update(String title, String description, Boolean done) {
+        this.title = title;
+        this.description = description;
+        this.done = done != null && done;
+        this.updatedAt = LocalDateTime.now();
+    }
+}
+
+package com.javatokotlinspring.todo.domain
+
+import jakarta.persistence.*
+import java.time.LocalDateTime
+
+@Entity
+@Table(name = "todos")
+class Todo(
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    val id: Long? = 0,
+
+    @Column(name = "title")
+    var title: String,
+
+    @Lob
+    @Column(name = "description")
+    var description: String,
+
+    @Column(name = "done")
+    var done: Boolean,
+
+    @Column(name = "created_at")
+    var createdAt: LocalDateTime,
+
+    @Column(name = "updated_at")
+    var updatedAt: LocalDateTime? = null,
+) {
+    fun update(title: String, description: String, done: Boolean) {
+        this.title = title
+        this.description = description
+        this.done = done
+    }
+}
 
 
+public interface TodoRepository extends JpaRepository<Todo, Long> {
+    Optional<List<Todo>> findAllByDoneIsFalseOrderByIdDesc();
+}
+
+interface TodoRepository : JpaRepository<Todo, Long> {
+    fun findAllByDoneIsFalseOrderByIdDesc(): List<Todo>?
+}
+```

@@ -1,7 +1,5 @@
 package com.javatokotlinspring.todo.service;
 
-import com.javatokotlinspring.todo.domain.Todo;
-import com.javatokotlinspring.todo.domain.TodoRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
