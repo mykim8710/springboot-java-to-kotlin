@@ -1,6 +1,5 @@
 package com.javatokotlinspring.todo.service;
 
-import com.javatokotlinspring.todo.api.model.TodoRequest;
 import com.javatokotlinspring.todo.domain.Todo;
 import com.javatokotlinspring.todo.domain.TodoRepository;
 
