@@ -29,12 +29,12 @@ data class TodoResponse(
     val description: String,
     val done: Boolean,
     val createdAt: LocalDateTime,
-    val updatedAt: LocalDateTime,
+    val updatedAt: LocalDateTime?,
 ) {
 
     companion object {
-        fun of(todo: Todo?): TodoResponse {
-            checkNotNull(todo) {
+        fun of(todo: Todo): TodoResponse {
+            checkNotNull(todo.id) {
                 "Todo is null"
             }
 
