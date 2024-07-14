@@ -5,7 +5,8 @@ import com.javatokotlinspring.todo.api.model.TodoRequest
 import com.javatokotlinspring.todo.api.model.TodoResponse
 import com.javatokotlinspring.todo.service.TodoService
 import org.springframework.http.ResponseEntity
-import org.springframework.http.ResponseEntity.*
+import org.springframework.http.ResponseEntity.noContent
+import org.springframework.http.ResponseEntity.ok
 import org.springframework.web.bind.annotation.*
 
 @RestController
